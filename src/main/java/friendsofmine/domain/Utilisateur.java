@@ -3,15 +3,26 @@ package friendsofmine.domain;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by valen on 27/02/2017.
  */
+@Entity
 public class Utilisateur {
+
+    public Utilisateur() {
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @NotNull
     @NotEmpty
@@ -30,6 +41,10 @@ public class Utilisateur {
     private String genre;
 
     private Date date;
+
+    @OneToMany(mappedBy = "utilisateur")
+    @NotNull
+    private Set<Activite> activites = new HashSet<>();
 
     public Utilisateur(String nom, String prenom, String email, String genre, Date date) {
         this.nom = nom;
@@ -64,5 +79,41 @@ public class Utilisateur {
 
     public Date getDate() {
         return date;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Set<Activite> getActivites() {
+        return activites;
+    }
+
+    public void setActivites(Set<Activite> activites) {
+        this.activites = activites;
     }
 }
