@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Utilisateurs</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="w3c.css" />
+</head>
+<body>
+<div th:replace="fragments/header"></div>
+<h1>Activites</h1>
+<table class="table">
+    <tr>
+        <th>Titre</th>
+        <th>Descriptif</th>
+    </tr>
+    <tr th:each="activite, iteration : ${activites}">
+        <td th:text="${activite.titre}">Nom</td>
+        <td th:text="${activite.description}">Prenom</td>
+    </tr>
+</table>
+</body>
+</html>
