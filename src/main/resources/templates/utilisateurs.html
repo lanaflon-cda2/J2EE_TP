@@ -1,29 +1,36 @@
 <!DOCTYPE html>
+<html>
 
-<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Utilisateurs</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="w3c.css" />
+    <title>Friends of Mine</title>
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
+
 <body>
-    <div th:replace="fragments/header"></div>
-    <h1>Utilisateurs</h1>
-    <table>
-        <tr>
-            <th>Nom</th>
-            <th>Prenom</th>
-            <th>Email</th>
-            <th>Genre</th>
-            <th>Date</th>
-        </tr>
-        <tr th:each="utilisateur, iteration : ${utilisateurs}">
-            <td th:text="${utilisateur.nom}">Nom</td>
-            <td th:text="${utilisateur.prenom}">Prenom</td>
-            <td th:text="${utilisateur.email}">Email</td>
-            <td th:text="${utilisateur.genre}">Genre</td>
-            <td th:text="${utilisateur.date}">Date</td>
-        </tr>
-    </table>
+<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+<h2>Liste des Utilisateurs</h2>
+<table class="w3-table-all w3-hoverable">
+    <tr>
+        <th>Id</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Date de naissance</th>
+        <th>Sexe</th>
+    </tr>
+    <tr th:each="utilisateur : ${utilisateurs}">
+        <td th:text="${utilisateur.id}"></td>
+        <td th:text="${utilisateur.nom}"></td>
+        <td th:text="${utilisateur.prenom}"></td>
+        <td th:text="${utilisateur.email}"></td>
+        <td th:text="${utilisateur.date}"></td>
+        <td th:text="${utilisateur.genre}"></td>
+        <td><a th:href="${ '/utilisateur/' + utilisateur.id}">Voir</a></td>
+        <td><a th:href="${'/utilisateur/edit/' + utilisateur.id}">Editer</a></td>
+        <td><a th:href="${'/utilisateur/delete/' + utilisateur.id}">Supprimer</a></td>
+    </tr>
+</table>
+
 </body>
 </html>

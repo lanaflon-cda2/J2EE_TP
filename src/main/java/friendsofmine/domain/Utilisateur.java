@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -25,11 +26,11 @@ public class Utilisateur {
     private Long id;
 
     @NotNull
-    @NotEmpty
+    @Size(min = 1, max = 20)
     private String nom;
 
     @NotNull
-    @NotEmpty
+    @Size(min = 1, max = 20)
     private String prenom;
 
     @NotNull

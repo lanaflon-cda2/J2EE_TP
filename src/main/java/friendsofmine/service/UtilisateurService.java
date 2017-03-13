@@ -48,4 +48,8 @@ public class UtilisateurService {
         return list;
     }
 
+    public void deleteUtilisateur(Utilisateur utilisateur){
+        utilisateurRepository.delete(utilisateur);
+    }
+
 }
