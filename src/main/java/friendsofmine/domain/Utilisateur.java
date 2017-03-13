@@ -43,7 +43,6 @@ public class Utilisateur {
     private Date date;
 
     @OneToMany(mappedBy = "utilisateur")
-    @NotNull
     private Set<Activite> activites = new HashSet<>();
 
     public Utilisateur(String nom, String prenom, String email, String genre, Date date) {
@@ -115,5 +114,9 @@ public class Utilisateur {
 
     public void setActivites(Set<Activite> activites) {
         this.activites = activites;
+    }
+
+    public void addActivites(Activite activite){
+        activites.add(activite);
     }
 }

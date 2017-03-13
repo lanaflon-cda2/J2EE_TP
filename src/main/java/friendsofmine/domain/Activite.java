@@ -21,8 +21,7 @@ public class Activite {
 
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id_utilisateur")
+    @ManyToOne
     @NotNull
     private Utilisateur utilisateur;
 
