@@ -1,6 +1,7 @@
 package friendsofmine.service;
 
 import friendsofmine.domain.Activite;
+import friendsofmine.domain.Inscription;
 import friendsofmine.domain.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,13 @@ public class InitialisationService {
     private ArrayList<Activite> activiteList = new ArrayList<>();
 
     @Autowired
-    UtilisateurService utilisateurService;
+    private UtilisateurService utilisateurService;
 
     @Autowired
-    ActiviteService activiteService;
+    private ActiviteService activiteService;
+
+    @Autowired
+    private InscriptionService inscriptionService;
 
     private Utilisateur thom = new Utilisateur("thom", "yorke", "thom@yorke.fr", "M");
     private Utilisateur mary = new Utilisateur("mary", "yorke", "mary@yorke.fr", "F");
@@ -31,10 +35,21 @@ public class InitialisationService {
     private Activite lindyhop = new Activite("lindyhop", "descriptif1", thom);
     private Activite taekwondo = new Activite("taekwondo", "descriptif2", mary);
 
+    private Inscription maryOnTaekwondo;
+    private Inscription thomOnRandonnee;
+    private Inscription thomOnLindyhop;
+
     public void initDonnees(){
         activiteService.saveActivite(randonnee);
         activiteService.saveActivite(lindyhop);
         activiteService.saveActivite(taekwondo);
+        maryOnTaekwondo = new Inscription(mary, taekwondo, null);
+        thomOnRandonnee = new Inscription(thom, randonnee, null);
+        thomOnLindyhop = new Inscription(thom, lindyhop, null);
+        inscriptionService.saveInscription(maryOnTaekwondo);
+        inscriptionService.saveInscription(thomOnRandonnee);
+        inscriptionService.saveInscription(thomOnLindyhop);
+
     }
 
     public ArrayList<Utilisateur> getUtilisateurList() {
@@ -63,5 +78,17 @@ public class InitialisationService {
 
     public Activite getTaekwondo() {
         return taekwondo;
+    }
+
+    public Inscription getMaryOnTaekwondo() {
+        return maryOnTaekwondo;
+    }
+
+    public Inscription getThomOnRandonnee() {
+        return thomOnRandonnee;
+    }
+
+    public Inscription getThomOnLindyhop() {
+        return thomOnLindyhop;
     }
 }

@@ -1,5 +1,6 @@
 package friendsofmine.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class Activite {
 
     @ManyToOne
     @NotNull
+    @JsonIgnore
     private Utilisateur utilisateur;
 
     public Activite() {
@@ -69,5 +71,33 @@ public class Activite {
 
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Activite activite = (Activite) o;
+        return this.id.equals(activite.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (titre != null ? titre.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (utilisateur != null ? utilisateur.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Activite{" +
+                "id=" + id +
+                ", titre='" + titre + '\'' +
+                ", description='" + description + '\'' +
+                ", utilisateur=" + utilisateur +
+                '}';
     }
 }

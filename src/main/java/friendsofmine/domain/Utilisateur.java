@@ -120,4 +120,13 @@ public class Utilisateur {
     public void addActivites(Activite activite){
         activites.add(activite);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Utilisateur utilisateur = (Utilisateur) obj;
+        return this.id.equals(utilisateur.getId());
+    }
 }
