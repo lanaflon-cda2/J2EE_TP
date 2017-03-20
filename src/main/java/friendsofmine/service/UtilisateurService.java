@@ -5,6 +5,7 @@ import friendsofmine.domain.Activite;
 import friendsofmine.domain.Utilisateur;
 import friendsofmine.service.repositories.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +51,10 @@ public class UtilisateurService {
 
     public void deleteUtilisateur(Utilisateur utilisateur){
         utilisateurRepository.delete(utilisateur);
+    }
+
+    public Iterable<Utilisateur> findByExample(Utilisateur utilisateur){
+        return utilisateurRepository.findAll(Example.of(utilisateur));
     }
 
 }

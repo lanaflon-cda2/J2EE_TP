@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Friends of Mine</title>
@@ -10,6 +10,9 @@
 <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 
 <h2>Liste des Utilisateurs</h2>
+<a th:href="@{/utilisateurs}">Tout</a>
+<a th:href="@{/utilisateurs?sexe=M}">Hommes</a>
+<a th:href="@{/utilisateurs?sexe=F}">Femmes</a>
 <table class="w3-table-all w3-hoverable">
     <tr>
         <th>Id</th>
@@ -17,7 +20,7 @@
         <th>Prénom</th>
         <th>Email</th>
         <th>Date de naissance</th>
-        <th>Sexe</th>
+        <th>Sexe </th>
     </tr>
     <tr th:each="utilisateur : ${utilisateurs}">
         <td th:text="${utilisateur.id}"></td>

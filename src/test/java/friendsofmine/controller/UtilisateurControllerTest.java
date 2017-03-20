@@ -59,6 +59,28 @@ public class UtilisateurControllerTest {
     }
 
     @Test
+    public void testGetUtilisateursHomme() throws Exception{
+        mockMvc.perform(get("/utilisateurs?sexe=M"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("text/html;charset=UTF-8"))
+                .andExpect(view().name("utilisateurs"))
+                .andExpect(content().string(Matchers.containsString("<h2>Liste des Utilisateurs</h2>")))
+                .andExpect(content().string(Matchers.containsString("thom")))
+                .andDo(print());
+    }
+
+    @Test
+    public void testGetUtilisateursFemme() throws Exception{
+        mockMvc.perform(get("/utilisateurs?sexe=F"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("text/html;charset=UTF-8"))
+                .andExpect(view().name("utilisateurs"))
+                .andExpect(content().string(Matchers.containsString("<h2>Liste des Utilisateurs</h2>")))
+                .andExpect(content().string(Matchers.containsString("mary")))
+                .andDo(print());
+    }
+
+    @Test
     public void testReadUtilisateurIdValide() throws Exception{
         mockMvc.perform(get("/utilisateur/" + util.getId()))
                 .andExpect(status().isOk())

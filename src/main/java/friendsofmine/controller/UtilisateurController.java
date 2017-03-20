@@ -6,6 +6,7 @@ import friendsofmine.domain.Utilisateur;
 import friendsofmine.service.ActiviteService;
 import friendsofmine.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -31,8 +34,15 @@ public class UtilisateurController {
     private UtilisateurService utilisateurService;
 
     @RequestMapping("/utilisateurs")
-    public String list(Model model){
-        List<Utilisateur> utilisateurList = bootstrap.getUtilisateurs();
+    public String list(Model model, @RequestParam(value = "sexe", required = false) String sexe){
+        Iterable<Utilisateur> utilisateurList;
+        if(sexe != null){
+            Utilisateur utilisateur = new Utilisateur();
+            utilisateur.setGenre(sexe);
+            utilisateurList = utilisateurService.findByExample(utilisateur);
+        }else{
+            utilisateurList = bootstrap.getUtilisateurs();
+        }
         model.addAttribute("utilisateurs", utilisateurList);
         return "utilisateurs";
     }

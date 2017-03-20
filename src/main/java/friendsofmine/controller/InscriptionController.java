@@ -8,10 +8,15 @@ import friendsofmine.service.ActiviteService;
 import friendsofmine.service.InscriptionService;
 import friendsofmine.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by valen on 16/03/2017.
@@ -61,6 +66,19 @@ public class InscriptionController {
         }
         inscriptionService.deleteInscription(inscription);
         return HttpStatus.OK;
+    }
+
+    @RequestMapping("/search")
+    public Page<Inscription> search(@RequestParam(value = "nom_utilisateur", required = false) String nom,
+                                    @RequestParam(value = "titre_activite", required = false) String titre,
+                                    Pageable pageable){
+        if(nom != null && titre != null)
+            return inscriptionService.findByUtilisateurActivite(nom, titre, pageable);
+        else if(nom != null)
+            return inscriptionService.findByUtilisateur(nom, pageable);
+        else if(titre != null)
+            return inscriptionService.findByActivite(titre, pageable);
+        return inscriptionService.findAll(pageable);
     }
 
 }
